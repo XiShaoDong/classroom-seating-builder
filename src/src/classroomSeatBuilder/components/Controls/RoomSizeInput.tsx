@@ -1,4 +1,4 @@
-import type { RoomData } from '../../seatUtils';
+import type { RoomData } from '../../../seatUtils';
 import { styles } from '../../style/styles';
 
 

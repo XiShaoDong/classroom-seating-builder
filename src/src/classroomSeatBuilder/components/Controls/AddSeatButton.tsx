@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { SEAT_TEMPLATES } from "../../seatUtils";
-import type { Seat, RoomData } from "../../seatUtils";
-import { findAvailablePosition, generateSeatId } from "../../seatUtils";
+import { SEAT_TEMPLATES } from "../../../seatUtils";
+import type { Seat, RoomData } from "../../../seatUtils";
+import { findAvailablePosition, generateSeatId } from "../../../seatUtils";
 import { styles } from '../../style/styles';
 import { Plus } from "lucide-react";
 

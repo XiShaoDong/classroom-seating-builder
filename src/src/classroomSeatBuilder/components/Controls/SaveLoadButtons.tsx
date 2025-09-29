@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import type { RoomData } from "../../seatUtils";
+import type { RoomData } from "../../../seatUtils";
 import { Save, Trash2, Upload } from "lucide-react";
 import { styles } from "../../style/styles";
 
