@@ -7,14 +7,13 @@ import { styles } from '../../style/styles';
 interface Props {
   roomData: RoomData;
   draggedSeat: SeatType | null;
-  isDragging: boolean;
   isTrashActive: boolean;
   onDragStart: (e: React.DragEvent, seat: SeatType) => void;
   onDragEnd: () => void;
   onGridDrop: (e: React.DragEvent, gridRef: React.RefObject<HTMLDivElement | null>) => void;
   onTrashDrop: () => void;
 }
-const RoomGrid = ({ roomData, draggedSeat, isDragging, isTrashActive, onDragStart, onDragEnd, onGridDrop, onTrashDrop }: Props) => {
+const RoomGrid = ({ roomData, draggedSeat, isTrashActive, onDragStart, onDragEnd, onGridDrop, onTrashDrop }: Props) => {
   const gridRef = useRef<HTMLDivElement>(null);
   const renderGrid = () => Array.from({ length: roomData.rows * roomData.cols }, (_, i) => {
     const x = i % roomData.cols, y = Math.floor(i / roomData.cols);

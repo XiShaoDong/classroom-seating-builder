@@ -8,7 +8,7 @@ import { styles } from '../style/styles';
 
 const ClassroomEditor = () => {
   const { roomData, setRoomData, addSeats, updateSeat, removeSeat, updateRoomSize } = useRoomData();
-  const { draggedSeat, isDragging, isTrashActive, handleDragStart, handleDragEnd, handleGridDrop, handleTrashDrop } = useDragDrop(roomData, updateSeat, removeSeat);
+  const { draggedSeat, isTrashActive, handleDragStart, handleDragEnd, handleGridDrop, handleTrashDrop } = useDragDrop(roomData, updateSeat, removeSeat);
 
   return (
     <div style={styles.container}>
@@ -34,7 +34,6 @@ const ClassroomEditor = () => {
             <RoomGrid
               roomData={roomData}
               draggedSeat={draggedSeat}
-              isDragging={isDragging}
               isTrashActive={isTrashActive}
               onDragStart={handleDragStart}
               onDragEnd={handleDragEnd}
