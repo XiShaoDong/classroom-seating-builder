@@ -10,7 +10,7 @@ import { styles } from '../style/styles';
 
 const ClassroomEditor = () => {
   const { roomData, setRoomData, addSeats, updateSeat, removeSeat, updateRoomSize } = useRoomData();
-  const { draggedSeat, isTrashActive, handleDragStart, handleDragEnd, handleGridDrop, handleTrashDrop } = useDragDrop(roomData, updateSeat, removeSeat);
+  const { draggedSeat, isTrashActive, handleDragStart, handleDragEnd, handleTrashDrop } = useDragDrop(roomData, updateSeat, removeSeat);
   const [isDragOutsideGrid, setIsDragOutsideGrid] = useState(false);
   const [selectedSeatIds, setSelectedSeatIds] = useState<Set<string>>(new Set());
   const roomGridRef = useRef<{ startMarquee: (clientX: number, clientY: number) => void }>(null);
@@ -114,7 +114,7 @@ const ClassroomEditor = () => {
 
         {/* Grid area with drop-zone overlay */}
         <div
-          style={styles.gridPanel}
+          style={styles.gridPanel as React.CSSProperties}
           onMouseDown={(e) => {
             // Only start marquee from padding area, not from inside RoomGrid
             if ((e.target as HTMLElement).closest('[data-seat-id]')) return;

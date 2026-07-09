@@ -6,18 +6,16 @@ import { styles } from '../../style/styles';
 interface Props {
   roomData: RoomData;
   draggedSeat: SeatType | null;
-  isTrashActive: boolean;
   onDragStart: (e: React.DragEvent, seat: SeatType) => void;
   onDragEnd: () => void;
   onGridDrop: (e: React.DragEvent, gridRef: React.RefObject<HTMLDivElement | null>) => void;
-  onTrashDrop: () => void;
   onDragOutsideChange?: (isOutside: boolean) => void;
   selectedSeatIds: Set<string>;
   onToggleSelect: (seatId: string) => void;
   onSetSelection: (ids: Set<string>) => void;
 }
 
-const RoomGrid = forwardRef<{ startMarquee: (clientX: number, clientY: number) => void }, Props>(({ roomData, draggedSeat, isTrashActive, onDragStart, onDragEnd, onGridDrop, onTrashDrop, onDragOutsideChange, selectedSeatIds, onToggleSelect, onSetSelection }, ref) => {
+const RoomGrid = forwardRef<{ startMarquee: (clientX: number, clientY: number) => void }, Props>(({ roomData, draggedSeat, onDragStart, onDragEnd, onGridDrop, onDragOutsideChange, selectedSeatIds, onToggleSelect, onSetSelection }, ref) => {
   const gridRef = useRef<HTMLDivElement>(null);
   const isDragOutsideRef = useRef(false);
   const isDragging = draggedSeat !== null;
