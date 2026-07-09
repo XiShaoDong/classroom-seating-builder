@@ -1,5 +1,6 @@
 import './App.css'
-import ClassroomEditor from './ClassroomSeatBuilder'
+// import ClassroomEditor from './ClassroomSeatBuilder'
+import ClassroomEditor from './src/classroomSeatBuilder/page/ClassroomEditor'
 function App() {
 
   return (
