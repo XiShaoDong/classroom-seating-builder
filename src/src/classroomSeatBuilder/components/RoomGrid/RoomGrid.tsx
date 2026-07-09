@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useMemo } from 'react';
 import Seat from './Seat';
 import TrashBin from './TrashBin';
 import type { RoomData, Seat as SeatType } from '../../hooks/useRoomData';
@@ -15,12 +15,32 @@ interface Props {
 }
 const RoomGrid = ({ roomData, draggedSeat, isTrashActive, onDragStart, onDragEnd, onGridDrop, onTrashDrop }: Props) => {
   const gridRef = useRef<HTMLDivElement>(null);
+  const isDragging = draggedSeat !== null;
+
+  const occupiedPositions = useMemo(() => {
+    if (!isDragging) return new Set<string>();
+    const set = new Set<string>();
+    for (const s of roomData.seats) {
+      if (s.id !== draggedSeat!.id) set.add(`${s.x},${s.y}`);
+    }
+    return set;
+  }, [isDragging, roomData.seats, draggedSeat]);
+
   const renderGrid = () => Array.from({ length: roomData.rows * roomData.cols }, (_, i) => {
     const x = i % roomData.cols, y = Math.floor(i / roomData.cols);
-    return <div key={i} style={{ ...styles.gridCell, left: `${x * 40}px`, top: `${y * 40}px` }} />;
+    let cellStyle: React.CSSProperties = { ...styles.gridCell, left: `${x * 40}px`, top: `${y * 40}px` };
+    if (isDragging) {
+      const occupied = occupiedPositions.has(`${x},${y}`);
+      Object.assign(cellStyle, occupied ? styles.gridCellOccupied : styles.gridCellDroppable);
+    }
+    return <div key={i} style={cellStyle} />;
   });
 
-  const gridStyle = { ...styles.gridContainer, width: `${roomData.cols * 40}px`, height: `${roomData.rows * 40}px` };
+  const gridStyle = {
+    ...(isDragging ? styles.gridContainerDragging : styles.gridContainer),
+    width: `${roomData.cols * 40}px`,
+    height: `${roomData.rows * 40}px`
+  };
 
   return (
     <div style={{ position: 'relative' }}>

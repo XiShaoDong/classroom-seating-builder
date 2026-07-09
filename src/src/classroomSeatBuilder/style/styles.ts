@@ -1,6 +1,6 @@
 export const styles = {
   container: {
-    minHeight: '500vh',
+    minHeight: '100vh',
     backgroundColor: '#f3f4f6',
     padding: '24px',
     width: '100vw',
@@ -75,6 +75,24 @@ export const styles = {
     minHeight: '200px',
     width: "100%",
     height: "100%"
+  },
+  gridContainerDragging: {
+    position: 'relative' as const,
+    border: '2px dashed #3b82f6',
+    backgroundColor: '#eff6ff',
+    cursor: 'copy',
+    minWidth: '320px',
+    minHeight: '200px',
+    width: "100%",
+    height: "100%"
+  },
+  gridCellDroppable: {
+    backgroundColor: 'rgba(34, 197, 94, 0.12)',
+    border: '1px dashed rgba(34, 197, 94, 0.4)'
+  },
+  gridCellOccupied: {
+    backgroundColor: 'rgba(239, 68, 68, 0.12)',
+    border: '1px dashed rgba(239, 68, 68, 0.4)'
   },
   gridCell: {
     position: 'absolute' as const,
