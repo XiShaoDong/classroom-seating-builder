@@ -4,7 +4,7 @@ export interface RoomData { cols: number; rows: number; seats: Seat[]; }
 
 const useRoomData = () => {
   const [roomData, setRoomData] = useState<RoomData>({
-    cols: 8, rows: 5, seats: []
+    cols: 8, rows: 8, seats: []
   });
 
   const addSeats = useCallback((newSeats: Seat[]) => {

@@ -1,44 +1,61 @@
 export const styles = {
-  container: {
+  pageWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
     minHeight: '100vh',
-    backgroundColor: '#f3f4f6',
-    padding: '24px',
-    width: '100vw',
+    padding: '48px 16px',
+    backgroundColor: '#eef0f3',
   },
-  maxWidth: {
-    maxWidth: '1280px',
-    margin: '0 auto',
-    width: '100%'
-  },
-  title: {
-    fontSize: '30px',
-    fontWeight: 'bold',
-    color: '#1f2937',
-    marginBottom: '32px',
-    textAlign: 'center' as const
-  },
-  controlPanel: {
+  componentCard: {
     backgroundColor: 'white',
-    padding: '24px',
-    borderRadius: '8px',
-    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-    marginBottom: '24px'
+    borderRadius: '12px',
+    boxShadow: '0 4px 24px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.06)',
+    overflow: 'hidden',
+    border: '1px solid #e5e7eb',
+    width: 'fit-content',
   },
-  controlFlex: {
+  cardHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '12px 20px',
+    borderBottom: '1px solid #e5e7eb',
+    backgroundColor: '#fafbfc',
+  },
+  cardTitle: {
+    fontSize: '16px',
+    fontWeight: '600',
+    color: '#1f2937',
+    margin: 0,
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+  },
+  badge: {
+    fontSize: '12px',
+    fontWeight: '500',
+    color: '#6b7280',
+    backgroundColor: '#f3f4f6',
+    padding: '4px 10px',
+    borderRadius: '10px',
+    border: '1px solid #e5e7eb',
+  },
+  controlsRow: {
     display: 'flex',
     flexWrap: 'wrap' as const,
     alignItems: 'center',
-    gap: '16px'
+    gap: '8px',
+    padding: '10px 20px',
+    borderBottom: '1px solid #e5e7eb',
+    backgroundColor: '#fff',
   },
-  mainPanel: {
-    backgroundColor: 'white',
+  gridPanel: {
     padding: '24px',
-    borderRadius: '8px',
-    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
-  },
-  centerContent: {
-    display: 'flex',
-    justifyContent: 'center'
+    backgroundColor: '#f9fafb',
+    position: 'relative',
+    borderRadius: '0 0 12px 12px',
+    minHeight: '100px',
   },
   seat: {
     position: 'absolute' as const,
@@ -71,20 +88,16 @@ export const styles = {
     position: 'relative' as const,
     border: '2px solid #d1d5db',
     backgroundColor: 'white',
-    minWidth: '320px',
-    minHeight: '200px',
-    width: "100%",
-    height: "100%"
+    overflow: 'hidden',
+    borderRadius: '6px',
   },
   gridContainerDragging: {
     position: 'relative' as const,
     border: '2px dashed #3b82f6',
     backgroundColor: '#eff6ff',
     cursor: 'copy',
-    minWidth: '320px',
-    minHeight: '200px',
-    width: "100%",
-    height: "100%"
+    overflow: 'hidden',
+    borderRadius: '6px',
   },
   gridCellDroppable: {
     backgroundColor: 'rgba(34, 197, 94, 0.12)',
@@ -102,29 +115,33 @@ export const styles = {
     height: '40px'
   },
   trashBin: {
-    position: 'fixed' as const,
-    bottom: '24px',
-    right: '24px',
-    width: '64px',
-    height: '64px',
-    borderRadius: '50%',
+    position: 'absolute' as const,
+    bottom: '12px',
+    right: '12px',
+    width: '48px',
+    height: '48px',
+    borderRadius: '10px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     cursor: 'pointer',
-    transition: 'all 0.3s',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.15)',
-    zIndex: 50
+    transition: 'all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.12)',
+    zIndex: 10,
+    border: '2px dashed transparent',
+    backdropFilter: 'blur(4px)',
   },
   trashBinInactive: {
     backgroundColor: '#e5e7eb',
-    color: '#6b7280'
+    color: '#6b7280',
+    borderColor: '#d1d5db',
+    opacity: 0.6,
   },
   trashBinActive: {
-    backgroundColor: '#ef4444',
+    backgroundColor: 'rgba(239, 68, 68, 0.9)',
     color: 'white',
-    transform: 'scale(1.1)',
-    animation: 'pulse 1s infinite'
+    borderColor: '#ef4444',
+    opacity: 1,
   },
   button: {
     display: 'flex',
@@ -209,5 +226,10 @@ export const styles = {
     backgroundColor: '#eff6ff',
     padding: '16px',
     borderRadius: '8px'
-  }
+  },
+  separator: {
+    width: '1px',
+    height: '28px',
+    backgroundColor: '#e5e7eb',
+  },
 };

@@ -53,7 +53,6 @@ const SaveLoadButtons = ({ roomData, setRoomData }: SaveLoadButtonsProps) => {
     setShowSaveDialog(false);
     refreshSavedLayouts();
     alert('Save Template Success!');
-    console.log(roomDataToSave)
   };
 
   const handleLoad = (name: string) => {
@@ -104,17 +103,15 @@ const SaveLoadButtons = ({ roomData, setRoomData }: SaveLoadButtonsProps) => {
         Save Template
       </button>
 
-      {savedLayouts.length > 0 && (
-        <button
-          onClick={() => setShowLoadDialog(true)}
-          style={{ ...styles.button, ...styles.buttonPurple }}
-          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#7c3aed'}
-          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#8b5cf6'}
-        >
-          <Upload size={20} />
-          Load Template
-        </button>
-      )}
+      <button
+        onClick={() => setShowLoadDialog(true)}
+        style={{ ...styles.button, ...styles.buttonPurple }}
+        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#7c3aed'}
+        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#8b5cf6'}
+      >
+        <Upload size={20} />
+        Load Template
+      </button>
 
       {showSaveDialog && (
         <div style={styles.modal}>
@@ -158,7 +155,7 @@ const SaveLoadButtons = ({ roomData, setRoomData }: SaveLoadButtonsProps) => {
             <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '16px' }}>Load Template</h3>
             <div style={{ maxHeight: '256px', overflowY: 'auto' }}>
               {savedLayouts.length === 0 ? (
-                <p style={{ color: '#6b7280', textAlign: 'center', padding: '16px 0' }}>Unable to Save Template</p>
+                <p style={{ color: '#6b7280', textAlign: 'center', padding: '16px 0' }}>No saved templates yet</p>
               ) : (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   {savedLayouts.map(name => (
