@@ -153,11 +153,9 @@ const ClassroomEditor = () => {
             <RoomGrid ref={roomGridRef}
               roomData={roomData}
               draggedSeat={draggedSeat}
-              isTrashActive={isTrashActive}
               onDragStart={handleDragStart}
               onDragEnd={handleDragEnd}
               onGridDrop={handleGridDropWrapper}
-              onTrashDrop={handleBulkDelete}
               onDragOutsideChange={setIsDragOutsideGrid}
               selectedSeatIds={selectedSeatIds}
               onToggleSelect={handleToggleSelect}
