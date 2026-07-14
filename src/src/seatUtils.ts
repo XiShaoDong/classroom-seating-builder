@@ -19,7 +19,7 @@ export interface Template {
 
 export const SEAT_TEMPLATES: Record<string, Template> = {
   single: { name: 'Single Seat', seats: [{ x: 0, y: 0 }] },
-  double: { name: '双人桌', seats: [{ x: 0, y: 0 }, { x: 1, y: 0 }] },
+  double: { name: 'Pair Seat', seats: [{ x: 0, y: 0 }, { x: 1, y: 0 }] },
   custom: { name: 'Custom Block', seats: [] },
 };
 
