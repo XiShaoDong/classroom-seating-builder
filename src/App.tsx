@@ -1,5 +1,4 @@
 import './App.css'
-// import ClassroomEditor from './ClassroomSeatBuilder'
 import TaskBuilder from './components/TaskBuilder'
 function App() {
 
