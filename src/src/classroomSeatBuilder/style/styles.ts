@@ -14,6 +14,8 @@ export const styles = {
     overflow: 'hidden',
     border: '1px solid #e5e7eb',
     width: 'fit-content',
+    // width: '62%',
+    // height: '350',  
   },
   cardHeader: {
     display: 'flex',
@@ -53,7 +55,7 @@ export const styles = {
   gridPanel: {
     padding: '24px',
     backgroundColor: '#f9fafb',
-    position: 'relative',
+    position: 'relative' as const,
     borderRadius: '0 0 12px 12px',
     minHeight: '100px',
   },

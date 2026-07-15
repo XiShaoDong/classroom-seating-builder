@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import type { ReactNode } from 'react';
-import { Armchair, Users, Grid2x2, GitBranch, Square } from 'lucide-react';
+import { Grid2x2, ListTodo } from 'lucide-react';
 import CardDeckSlider from './CardDeckSlider';
 import CardCarousel from './CardCarousel';
 import SeatLayoutPreview from './SeatLayoutPreview';
-import { styles } from '../../style/styles';
+import { styles } from '../../../classroomSeatBuilder/style/styles';
 
-/** Build a rectangular block of seats for previews. */
+// ==================== SEAT LAYOUT PREVIEW DATA ====================
+
 const block = (rows: number, cols: number) => {
   const seats: { x: number; y: number }[] = [];
   for (let y = 0; y < rows; y++) {
@@ -15,18 +16,17 @@ const block = (rows: number, cols: number) => {
   return seats;
 };
 
-/** U-shape: top row + bottom row + left/right columns, hollow center. */
 const uShape = () => {
   const seats: { x: number; y: number }[] = [];
   const cols = 6;
   const rows = 4;
   for (let x = 0; x < cols; x++) {
-    seats.push({ x, y: 0 }); // top row
-    seats.push({ x, y: rows - 1 }); // bottom row
+    seats.push({ x, y: 0 });
+    seats.push({ x, y: rows - 1 });
   }
   for (let y = 1; y < rows - 1; y++) {
-    seats.push({ x: 0, y }); // left column
-    seats.push({ x: cols - 1, y }); // right column
+    seats.push({ x: 0, y });
+    seats.push({ x: cols - 1, y });
   }
   return seats;
 };
@@ -36,63 +36,69 @@ interface DeckItem {
   title: string;
   subtitle: string;
   desc: string;
-  seats: { x: number; y: number }[];
   gradient: string;
-  seatCount: string;
+  content: ReactNode;
 }
 
-const ITEMS: DeckItem[] = [
-  {
-    icon: <Armchair size={24} color="white" />,
-    title: 'Single Seat',
-    subtitle: '单人桌模板',
-    desc: 'A standalone seat for individual placement. The atomic unit of any classroom layout.',
-    seats: [{ x: 0, y: 0 }],
-    gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    seatCount: '1 seat',
-  },
-  {
-    icon: <Users size={24} color="white" />,
-    title: '双人桌',
-    subtitle: 'Double Desk',
-    desc: 'Two adjacent seats sharing a workspace — ideal for pair work and collaboration.',
-    seats: [
-      { x: 0, y: 0 },
-      { x: 1, y: 0 },
-    ],
-    gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-    seatCount: '2 seats',
-  },
-  {
-    icon: <Grid2x2 size={24} color="white" />,
-    title: 'Small Classroom',
-    subtitle: '4 × 4 Grid',
-    desc: 'A compact 4×4 arrangement of 16 seats. Fits a standard small classroom grid.',
-    seats: block(4, 4),
-    gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-    seatCount: '16 seats',
-  },
-  {
-    icon: <GitBranch size={24} color="white" />,
-    title: 'U-Shape',
-    subtitle: 'Discussion Layout',
-    desc: 'Seats wrap around three sides, leaving the center open — perfect for group discussion.',
-    seats: uShape(),
-    gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-    seatCount: '16 seats',
-  },
-  {
-    icon: <Square size={24} color="white" />,
-    title: 'Custom Block',
-    subtitle: '3 × 5 Block',
-    desc: 'A larger custom block of 15 seats. Drag-and-drop ready for the seating builder canvas.',
-    seats: block(3, 5),
-    gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-    seatCount: '15 seats',
-  },
-];
+// Card 1: Classroom Seat Builder preview
+const seatCard: DeckItem = {
+  icon: <Grid2x2 size={28} color="white" />,
+  title: 'Classroom Seating',
+  subtitle: 'Seat Builder',
+  desc: 'Design classroom layouts by dragging seats onto a grid. Save and load templates.',
+  gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+  content: (
+    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' as const }}>
+      <SeatLayoutPreview seats={[{ x: 0, y: 0 }]} />
+      <SeatLayoutPreview seats={[{ x: 0, y: 0 }, { x: 1, y: 0 }]} />
+      <SeatLayoutPreview seats={block(4, 4)} />
+      <SeatLayoutPreview seats={uShape()} />
+    </div>
+  ),
+};
 
-const renderCard = (item: DeckItem) => (
+// Card 2: Task Schedule Builder preview
+const taskCard: DeckItem = {
+  icon: <ListTodo size={28} color="white" />,
+  title: 'Task Schedule',
+  subtitle: 'Timeline Builder',
+  desc: 'Plan class schedules with task templates. Drag to reorder, set start times, save your schedule.',
+  gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+  content: (
+    <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' as const }}>
+      {['Lecture', 'Discussion', 'Poll', 'Breakout', 'Presentation', 'Break'].map((type) => {
+        const colorMap: Record<string, { bg: string; color: string }> = {
+          Lecture: { bg: '#dbeafe', color: '#1d4ed8' },
+          Discussion: { bg: '#dcfce7', color: '#15803d' },
+          Poll: { bg: '#f3e8ff', color: '#7e22ce' },
+          Breakout: { bg: '#ffedd5', color: '#c2410c' },
+          Presentation: { bg: '#fce7f3', color: '#be185d' },
+          Break: { bg: '#f3f4f6', color: '#374151' },
+        };
+        const c = colorMap[type] || { bg: '#fef9c3', color: '#a16207' };
+        return (
+          <div
+            key={type}
+            style={{
+              padding: '4px 10px',
+              borderRadius: '8px',
+              backgroundColor: c.bg,
+              color: c.color,
+              fontSize: '11px',
+              fontWeight: 500,
+            }}
+          >
+            {type}
+          </div>
+        );
+      })}
+    </div>
+  ),
+};
+
+const ITEMS = [seatCard, taskCard];
+
+const renderCardContent = (item: DeckItem) => (
   <div style={{ ...styles.layoutCardInner, background: item.gradient }}>
     <div style={styles.layoutCardHeader}>
       <div style={styles.layoutCardIcon}>{item.icon}</div>
@@ -102,12 +108,10 @@ const renderCard = (item: DeckItem) => (
       </div>
     </div>
     <p style={styles.layoutCardDesc}>{item.desc}</p>
-    <div style={styles.layoutPreviewWrap}>
-      <SeatLayoutPreview seats={item.seats} />
-    </div>
+    <div style={styles.layoutPreviewWrap}>{item.content}</div>
     <div style={styles.layoutCardFooter}>
-      <span>{item.seatCount}</span>
-      <span>Template Preview</span>
+      <span>Interactive Builder</span>
+      <span>Preview</span>
     </div>
   </div>
 );
@@ -127,7 +131,7 @@ const CardDeckSliderDemo = () => {
             ...(mode === 'deck' ? styles.deckToolbarButtonActive : {}),
           }}
         >
-          🃏 Deck Mode
+          🃏 Deck
         </button>
         <button
           type="button"
@@ -137,17 +141,17 @@ const CardDeckSliderDemo = () => {
             ...(mode === 'expanded' ? styles.deckToolbarButtonActive : {}),
           }}
         >
-          ↔ Expanded Mode
+          ↔ Expanded
         </button>
       </div>
 
       {mode === 'deck' ? (
         <CardDeckSlider cardWidth={340} cardHeight={460}>
-          {ITEMS.map(renderCard)}
+          {ITEMS.map(renderCardContent)}
         </CardDeckSlider>
       ) : (
-        <CardCarousel cardWidth={300} cardHeight={440} visibleCount={3}>
-          {ITEMS.map(renderCard)}
+        <CardCarousel cardWidth={300} cardHeight={440} visibleCount={ITEMS.length}>
+          {ITEMS.map(renderCardContent)}
         </CardCarousel>
       )}
     </>

@@ -1,13 +1,31 @@
 import { useState } from 'react';
 import './App.css';
 import ClassroomEditor from './src/classroomSeatBuilder/page/ClassroomEditor';
+import TaskScheduleEditor from './src/taskScheduleBuilder/page/TaskScheduleEditor';
 import CardDeckSliderDemo from './src/classroomSeatBuilder/components/CardDeck/CardDeckSliderDemo';
 
+type View = 'seat' | 'task' | 'deck';
+
+const VIEWS: { key: View; label: string }[] = [
+  { key: 'seat', label: 'Seat Builder' },
+  { key: 'task', label: 'Task Builder' },
+  { key: 'deck', label: 'Card View' },
+];
+
 function App() {
-  const [view, setView] = useState<'editor' | 'deck'>('editor');
+  const [view, setView] = useState<View>('seat');
+
+  const renderView = () => {
+    switch (view) {
+      case 'seat': return <ClassroomEditor />;
+      case 'task': return <TaskScheduleEditor />;
+      case 'deck': return <CardDeckSliderDemo />;
+    }
+  };
 
   return (
     <div>
+      {/* Global view switcher */}
       <div
         style={{
           position: 'fixed',
@@ -23,41 +41,29 @@ function App() {
           backdropFilter: 'blur(4px)',
         }}
       >
-        <button
-          type="button"
-          onClick={() => setView('editor')}
-          style={{
-            padding: '6px 14px',
-            borderRadius: 6,
-            border: 'none',
-            cursor: 'pointer',
-            fontSize: 13,
-            fontWeight: 600,
-            backgroundColor: view === 'editor' ? '#3b82f6' : '#e5e7eb',
-            color: view === 'editor' ? 'white' : '#374151',
-          }}
-        >
-          Seat Builder
-        </button>
-        <button
-          type="button"
-          onClick={() => setView('deck')}
-          style={{
-            padding: '6px 14px',
-            borderRadius: 6,
-            border: 'none',
-            cursor: 'pointer',
-            fontSize: 13,
-            fontWeight: 600,
-            backgroundColor: view === 'deck' ? '#3b82f6' : '#e5e7eb',
-            color: view === 'deck' ? 'white' : '#374151',
-          }}
-        >
-          Card Deck
-        </button>
+        {VIEWS.map((v) => (
+          <button
+            key={v.key}
+            type="button"
+            onClick={() => setView(v.key)}
+            style={{
+              padding: '6px 14px',
+              borderRadius: 6,
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: 13,
+              fontWeight: 600,
+              backgroundColor: view === v.key ? '#3b82f6' : '#e5e7eb',
+              color: view === v.key ? 'white' : '#374151',
+              transition: 'background-color 0.15s, color 0.15s',
+            }}
+          >
+            {v.label}
+          </button>
+        ))}
       </div>
 
-      {view === 'editor' ? <ClassroomEditor /> : <CardDeckSliderDemo />}
+      {renderView()}
     </div>
   );
 }
